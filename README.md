@@ -1,6 +1,6 @@
 # Akeneo .NET Client
 
-[![Build Status](https://img.shields.io/appveyor/ci/pardahlman/rawrabbit.svg?style=flat-square)](https://ci.appveyor.com/project/pardahlman/rawrabbit) [![NuGet](https://img.shields.io/nuget/v/Akeneo.Net.svg?style=flat-square)](https://www.nuget.org/packages/Akeneo.NET) [![GitHub release](https://img.shields.io/github/release/pardahlman/akeneo-csharp.svg?style=flat-square)](https://github.com/pardahlman/akeneo-csharp/releases/latest)
+[![Build Status](https://img.shields.io/appveyor/ci/pardahlman/akeneo-csharp.svg?style=flat-square)](https://ci.appveyor.com/project/pardahlman/akeneo-csharp) [![NuGet](https://img.shields.io/nuget/v/Akeneo.NET.svg?style=flat-square)](https://www.nuget.org/packages/Akeneo.NET) [![GitHub release](https://img.shields.io/github/release/pardahlman/akeneo-csharp.svg?style=flat-square)](https://github.com/pardahlman/akeneo-csharp/releases/latest)
 
 > .NET Client to consume [Akeneo PIM](https://www.akeneo.com/)'s [RESTful API](api.akeneo.com).
 
@@ -39,7 +39,7 @@ var client = new AkeneoClient(new ClientOptions
 });
 ```
 
-### Create, update and delete away!
+### Create, delete and update
 
 That's it! Use the client's generic methods to create, get, update and remove [Attributes](https://api.akeneo.com/api-reference.html#Attributes), [Attribute Options](https://api.akeneo.com/api-reference.html#Attributeoptions), [Families](https://api.akeneo.com/api-reference.html#Families), [Categories](https://api.akeneo.com/api-reference.html#Categories) and [Products](https://api.akeneo.com/api-reference.html#Products).
 
