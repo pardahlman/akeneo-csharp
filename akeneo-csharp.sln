@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akeneo", "Akeneo\Akeneo.csproj", "{79E0C9CD-12F4-4FE0-9D5D-C656FBC59BC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akeneo.IntegrationTests", "Akeneo.IntegrationTests\Akeneo.IntegrationTests.csproj", "{46F841AA-D7D5-447B-A0AB-DB968AFA8B3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{79E0C9CD-12F4-4FE0-9D5D-C656FBC59BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79E0C9CD-12F4-4FE0-9D5D-C656FBC59BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79E0C9CD-12F4-4FE0-9D5D-C656FBC59BC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46F841AA-D7D5-447B-A0AB-DB968AFA8B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46F841AA-D7D5-447B-A0AB-DB968AFA8B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46F841AA-D7D5-447B-A0AB-DB968AFA8B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46F841AA-D7D5-447B-A0AB-DB968AFA8B3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

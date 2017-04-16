@@ -1,7 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PackageId>Akeneo.NET</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>pardahlman</Authors>
+    <Company>Fellow Developer</Company>
+    <Product>Akeneo .NET Client</Product>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
 
 </Project>
