@@ -8,7 +8,7 @@ namespace Akeneo.Http
 {
 	public static class HttpClientExtensions
 	{
-		public static Task<HttpResponseMessage> PostAsJsonAsync<TContent>(this HttpClient client, string uri, TContent content, CancellationToken ct = default (CancellationToken))
+		public static Task<HttpResponseMessage> PostJsonAsync<TContent>(this HttpClient client, string uri, TContent content, CancellationToken ct = default (CancellationToken))
 		{
 			return client.PostAsync(uri, new JsonContent(content), ct);
 		}

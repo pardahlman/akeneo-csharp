@@ -69,7 +69,7 @@ namespace Akeneo.Client
 
 		protected async Task<HttpResponseMessage> PostAsync<TContent>(string url, TContent content, CancellationToken ct = default(CancellationToken))
 		{
-			return await ExecuteAuthenticatedAsync((client, ctx) => client.PostAsJsonAsync(ctx.RequestUrl, ctx.Content, ctx.CancellationToken),
+			return await ExecuteAuthenticatedAsync((client, ctx) => client.PostJsonAsync(ctx.RequestUrl, ctx.Content, ctx.CancellationToken),
 				new HttpCallContext
 				{
 					CancellationToken = ct,
