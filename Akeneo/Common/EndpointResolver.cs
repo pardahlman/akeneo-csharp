@@ -22,7 +22,7 @@ namespace Akeneo.Common
 
 		public string ForResourceType<TModel>(string parentCode = null) where TModel : ModelBase
 		{
-			var isOption = AttributeOption.IsAssignableFrom(typeof(TModel));
+			var isOption = AttributeOption.GetTypeInfo().IsAssignableFrom(typeof(TModel));
 			return isOption
 				? $"{Endpoints.Attributes}/{parentCode}/options"
 				: GetResourceEndpoint(typeof(TModel));
@@ -68,7 +68,7 @@ namespace Akeneo.Common
 		protected virtual string GetResourceFormatString(Type modelType)
 		{
 			var endpoint = GetResourceTypeFormatString(modelType);
-			return AttributeOption.IsAssignableFrom(modelType)
+			return AttributeOption.GetTypeInfo().IsAssignableFrom(modelType)
 				? $"{endpoint}/{{1}}"
 				: $"{endpoint}/{{0}}";
 		}
@@ -76,7 +76,7 @@ namespace Akeneo.Common
 		protected virtual string GetResourceTypeFormatString(Type modelType)
 		{
 			var endpoint = GetResourceEndpoint(modelType);
-			return AttributeOption.IsAssignableFrom(modelType)
+			return AttributeOption.GetTypeInfo().IsAssignableFrom(modelType)
 				? $"{endpoint}/{{0}}/options"
 				: $"{endpoint}";
 		}
@@ -85,23 +85,23 @@ namespace Akeneo.Common
 		{
 			return _typeToEndpointCache.GetOrAdd(modelType, type =>
 			{
-				if (Product.IsAssignableFrom(type))
+				if (Product.GetTypeInfo().IsAssignableFrom(type))
 				{
 					return Endpoints.Products;
 				}
-				if (AttributeBase.IsAssignableFrom(type))
+				if (AttributeBase.GetTypeInfo().IsAssignableFrom(type))
 				{
 					return Endpoints.Attributes;
 				}
-				if (Family.IsAssignableFrom(type))
+				if (Family.GetTypeInfo().IsAssignableFrom(type))
 				{
 					return Endpoints.Families;
 				}
-				if (Category.IsAssignableFrom(type))
+				if (Category.GetTypeInfo().IsAssignableFrom(type))
 				{
 					return Endpoints.Categories;
 				}
-				if (AttributeOption.IsAssignableFrom(type))
+				if (AttributeOption.GetTypeInfo().IsAssignableFrom(type))
 				{
 					return Endpoints.Attributes;
 				}
