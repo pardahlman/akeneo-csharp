@@ -1,5 +1,7 @@
 # Akeneo .NET Client
 
+[![Build Status](https://img.shields.io/appveyor/ci/pardahlman/rawrabbit.svg?style=flat-square)](https://ci.appveyor.com/project/pardahlman/rawrabbit) [![NuGet](https://img.shields.io/nuget/v/Akeneo.Net.svg?style=flat-square)](https://www.nuget.org/packages/Akeneo.NET) [![GitHub release](https://img.shields.io/github/release/pardahlman/akeneo-csharp.svg?style=flat-square)](https://github.com/pardahlman/akeneo-csharp/releases/latest)
+
 > .NET Client to consume [Akeneo PIM](https://www.akeneo.com/)'s [RESTful API](api.akeneo.com).
 
 ## Getting started
