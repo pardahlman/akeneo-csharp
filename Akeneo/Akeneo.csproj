@@ -5,8 +5,14 @@
     <PackageId>Akeneo.NET</PackageId>
     <VersionPrefix>0.1.0</VersionPrefix>
     <Authors>pardahlman</Authors>
-    <Company>Fellow Developer</Company>
+    <Company></Company>
     <Product>Akeneo .NET Client</Product>
+    <Description>.NET Client for querying Akeno PIM's REST API.</Description>
+    <PackageProjectUrl>https://github.com/pardahlman/akeneo-csharp</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/pardahlman/akeneo-csharp/icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/pardahlman/akeneo-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>akeneo, pim</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
