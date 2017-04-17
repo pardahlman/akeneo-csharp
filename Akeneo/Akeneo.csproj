@@ -9,7 +9,7 @@
     <Product>Akeneo .NET Client</Product>
     <Description>.NET Client for querying Akeno PIM's REST API.</Description>
     <PackageProjectUrl>https://github.com/pardahlman/akeneo-csharp</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/pardahlman/akeneo-csharp/icon.png</PackageIconUrl>
+    <PackageIconUrl>https://github.com/pardahlman/akeneo-csharp/blob/master/icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/pardahlman/akeneo-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>akeneo, pim</PackageTags>
