@@ -8,10 +8,10 @@
 
 ### Install NuGet package
 
-[This package](https://www.nuget.org/packages/Akeneo.NET/) is available as a pre-release on nuget.org. Make sure to add the `-Pre` flag, alternativly check _Include prereleases_ if using Visual Studio graphical interface.
+[This package](https://www.nuget.org/packages/Akeneo.NET/) is available as a release on nuget.org.
 
 ```nuget
-PM> Install-Package Akeneo.NET -Pre 
+PM> Install-Package Akeneo.NET 
 ```
 
 ### Create OAuth Client and Secret
@@ -43,7 +43,7 @@ var client = new AkeneoClient(new ClientOptions
 
 That's it! Use the client's generic methods to create, get, update and remove [Attributes](https://api.akeneo.com/api-reference.html#Attributes), [Attribute Options](https://api.akeneo.com/api-reference.html#Attributeoptions), [Families](https://api.akeneo.com/api-reference.html#Families), [Categories](https://api.akeneo.com/api-reference.html#Categories) and [Products](https://api.akeneo.com/api-reference.html#Products).
 
-**Note:** There are some endpoints that is not implemented in the current version (1.7.2) of Akeneo PIM. For example, only Products can be removed.
+**Note:** There are some endpoints that is not implemented in the current version (1.7.3) of Akeneo PIM. For example, only Products can be removed.
 
 Programatically define a product and specify its categories, values etc
 
