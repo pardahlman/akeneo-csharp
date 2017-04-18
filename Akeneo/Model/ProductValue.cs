@@ -1,4 +1,7 @@
-﻿namespace Akeneo.Model
+﻿using Akeneo.Client.Converters;
+using Newtonsoft.Json;
+
+namespace Akeneo.Model
 {
 	public class ProductValue
 	{
@@ -15,6 +18,7 @@
 		/// <summary>
 		/// The value stored for this attribute for this locale (if attribute is localizable) and this channel (if the attribute is scopable). Its type and format depends on the attribute type.
 		/// </summary>
+		[JsonConverter(typeof(ProductValueDataConverter))]
 		public object Data { get; set; }
 	}
 }
