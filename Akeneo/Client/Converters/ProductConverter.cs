@@ -42,36 +42,9 @@ namespace Akeneo.Client.Converters
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
-			var result = new ProductValue();
-			while (reader.Read())
-			{
-				if (reader.TokenType == JsonToken.EndObject)
-				{
-					break;
-				}
-				if (reader.TokenType != JsonToken.PropertyName)
-				{
-					continue;
-				}
-				var propName = reader.Value.ToString();
-				if (string.Equals(propName, "data"))
-				{
-					reader.Read();
-					result.Data = serializer.Deserialize<object>(reader);
-					continue;
-				}
-				if (string.Equals(propName, "locale"))
-				{
-					result.Locale = reader.ReadAsString();
-					continue;
-				}
-				if (string.Equals(propName, "scope"))
-				{
-					result.Scope = reader.ReadAsString();
-				}
-			}
-			reader.Read();
-			return result;
+			var r = new ProductValue();
+			serializer.Populate(reader, r);
+			return r;
 		}
 
 		public override bool CanConvert(Type objectType)
