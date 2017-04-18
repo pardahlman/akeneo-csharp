@@ -8,7 +8,7 @@ namespace Akeneo.Common
 	{
 		public static readonly JsonSerializerSettings Instance = new JsonSerializerSettings
 		{
-			Converters = { new ProductConverter(), new ResponseConverter() },
+			Converters = { new ProductConverter() },
 			ContractResolver = new CamelCasePropertyNamesContractResolver
 			{
 				NamingStrategy = new SnakeCaseNamingStrategy()

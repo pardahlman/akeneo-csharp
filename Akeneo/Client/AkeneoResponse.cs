@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace Akeneo.Client
 {
@@ -7,6 +8,8 @@ namespace Akeneo.Client
 	{
 		public HttpStatusCode Code { get; set; }
 		public string Message { get; set; }
+
+		[JsonProperty("_links")]
 		public Dictionary<string, PaginationLink> Links { get; set; }
 		public List<ValidationError> Errors { get; set; }
 
