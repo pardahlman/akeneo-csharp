@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Akeneo.Model
 {
@@ -38,6 +39,16 @@ namespace Akeneo.Model
 		///  Product attributes values
 		/// </summary>
 		public Dictionary<string, List<ProductValue>> Values { get; set; }
+
+		/// <summary>
+		///  Date of creation
+		/// </summary>
+		public DateTime Created { get; set; }
+
+		/// <summary>
+		/// Date of the last update
+		/// </summary>
+		public DateTime Updated { get; set; }
 
 		/// <summary>
 		///  Several associations related to groups and/or other products, grouped by association types 
