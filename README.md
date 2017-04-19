@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/appveyor/ci/pardahlman/akeneo-csharp.svg?style=flat-square)](https://ci.appveyor.com/project/pardahlman/akeneo-csharp) [![NuGet](https://img.shields.io/nuget/v/Akeneo.NET.svg?style=flat-square)](https://www.nuget.org/packages/Akeneo.NET) [![GitHub release](https://img.shields.io/github/release/pardahlman/akeneo-csharp.svg?style=flat-square)](https://github.com/pardahlman/akeneo-csharp/releases/latest)
 
-> .NET Client to consume [Akeneo PIM](https://www.akeneo.com/)'s [RESTful API](api.akeneo.com).
+> .NET Client to consume [Akeneo PIM](https://www.akeneo.com/)'s [RESTful API](https://api.akeneo.com/).
 
 ## Getting started
 
@@ -26,7 +26,7 @@ php app/console pim:oauth-server:create-client \
 
 ### Create .NET client
 
-Create an instance of the client by providing the URL to Akeneo PIM together with client id/secret and user name and password. The client will request accecss tokens and refresh tokens when needed.
+Create an instance of the client by providing the URL to Akeneo PIM together with client id/secret and user name and password. The client will request access token and refresh token when needed.
 
 ```csharp
 var client = new AkeneoClient(new ClientOptions
@@ -43,9 +43,9 @@ var client = new AkeneoClient(new ClientOptions
 
 That's it! Use the client's generic methods to create, get, update and remove [Attributes](https://api.akeneo.com/api-reference.html#Attributes), [Attribute Options](https://api.akeneo.com/api-reference.html#Attributeoptions), [Families](https://api.akeneo.com/api-reference.html#Families), [Categories](https://api.akeneo.com/api-reference.html#Categories) and [Products](https://api.akeneo.com/api-reference.html#Products).
 
-**Note:** There are some endpoints that is not implemented in the current version (1.7.3) of Akeneo PIM. For example, only Products can be removed.
+**Note:** There are some endpoints that are not implemented in the current version (1.7.3) of Akeneo PIM. For example, only products can be removed.
 
-Programatically define a product and specify its categories, values etc
+Programmatically define a product and specify its categories, values etc
 
 ```csharp
 var product = new Product
