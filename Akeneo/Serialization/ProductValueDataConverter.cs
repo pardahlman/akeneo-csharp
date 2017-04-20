@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Akeneo.Client;
 using Newtonsoft.Json;
 
-namespace Akeneo.Client.Converters
+namespace Akeneo.Serialization
 {
 	public class ProductValueDataConverter : JsonConverter
 	{

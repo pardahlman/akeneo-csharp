@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Akeneo.Common;
+using Akeneo.Serialization;
 using Newtonsoft.Json;
 
 namespace Akeneo.Http

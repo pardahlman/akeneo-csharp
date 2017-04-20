@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text;
 using Akeneo.Common;
+using Akeneo.Serialization;
 using Newtonsoft.Json;
 
 namespace Akeneo.Http

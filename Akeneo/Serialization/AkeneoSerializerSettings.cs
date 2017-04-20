@@ -1,8 +1,7 @@
-﻿using Akeneo.Client.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Akeneo.Common
+namespace Akeneo.Serialization
 {
 	public class AkeneoSerializerSettings
 	{

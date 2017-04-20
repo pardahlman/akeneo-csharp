@@ -1,4 +1,4 @@
-﻿using Akeneo.Client.Converters;
+﻿using Akeneo.Serialization;
 using Newtonsoft.Json;
 
 namespace Akeneo.Model

@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Akeneo.Common;
+using Akeneo.Serialization;
 using Newtonsoft.Json;
 
 namespace Akeneo.Http

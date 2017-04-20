@@ -2,7 +2,7 @@
 using Akeneo.Model;
 using Newtonsoft.Json;
 
-namespace Akeneo.Client.Converters
+namespace Akeneo.Serialization
 {
 	public class ProductConverter : JsonConverter
 	{
