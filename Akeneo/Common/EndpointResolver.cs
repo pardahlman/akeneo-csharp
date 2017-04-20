@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using Akeneo.Model;
+using Akeneo.Model.Attributes;
 
 namespace Akeneo.Common
 {

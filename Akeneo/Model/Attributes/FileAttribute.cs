@@ -1,4 +1,4 @@
-﻿namespace Akeneo.Model
+﻿namespace Akeneo.Model.Attributes
 {
 	public class FileAttribute : TypedAttributeBase
 	{

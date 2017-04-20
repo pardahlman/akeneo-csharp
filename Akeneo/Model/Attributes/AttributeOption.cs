@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Akeneo.Model
+namespace Akeneo.Model.Attributes
 {
 	public class AttributeOption : ModelBase
 	{

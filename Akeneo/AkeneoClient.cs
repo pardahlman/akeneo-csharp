@@ -8,6 +8,7 @@ using Akeneo.Client;
 using Akeneo.Common;
 using Akeneo.Http;
 using Akeneo.Model;
+using Akeneo.Model.Attributes;
 
 namespace Akeneo
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Akeneo.Model;
+using Akeneo.Model.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

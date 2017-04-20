@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Akeneo.Model
+namespace Akeneo.Model.Attributes
 {
 	public class DateAttribute : TypedAttributeBase
 	{

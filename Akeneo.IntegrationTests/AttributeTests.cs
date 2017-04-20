@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Akeneo.Common;
 using Akeneo.Model;
+using Akeneo.Model.Attributes;
 using Xunit;
 
 namespace Akeneo.IntegrationTests
