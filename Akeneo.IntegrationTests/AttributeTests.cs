@@ -12,7 +12,7 @@ namespace Akeneo.IntegrationTests
 		[Fact]
 		public async Task Get_Many_Async()
 		{
-			var pagination = await Client.GetManyAsync<GenericAttribute>();
+			var pagination = await Client.GetManyAsync<AttributeBase>();
 
 			Assert.NotNull(pagination);
 			Assert.Equal(pagination.CurrentPage, 1);

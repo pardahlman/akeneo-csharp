@@ -11,10 +11,10 @@ namespace Akeneo.IntegrationTests
 			Client = new AkeneoClient(new AkeneoOptions
 			{
 				ApiEndpoint = new Uri("http://localhost:8080"),
-				ClientId = "1_3qwnpneuey80o080g0gco84ow4gsoo88skc880ssckgcg0okkg",
-				ClientSecret = "3aw5l2xnvugwg0kc800g4k8s4coo80kkkc8ccs0so08gg08oc8",
+				ClientId = "1_5zt5dbkbo50cogwkcw00woosgc08wocg8ccs80844ow48kkgkg",
+				ClientSecret = "4gr06ahrp4e8cowo4w0s4c8owkcw0skg084cko0wcow0cok8sg",
 				UserName = "admin",
-				Password = "admdin"
+				Password = "admin"
 			});
 		}
 
