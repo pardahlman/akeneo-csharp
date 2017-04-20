@@ -40,6 +40,12 @@ namespace Akeneo.Serialization
 					return obj.ToObject<TextAttribute>();
 				case AttributeType.TextArea:
 					return obj.ToObject<TextAreaAttribute>();
+				case AttributeType.MultiSelect:
+					return obj.ToObject<MulticastDelegate>();
+				case AttributeType.File:
+					return obj.ToObject<FileAttribute>();
+				case AttributeType.Image:
+					return obj.ToObject<ImageAttribute>();
 				default:
 					return obj.ToObject<GenericAttribute>();
 			}

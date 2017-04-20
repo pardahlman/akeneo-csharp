@@ -33,6 +33,11 @@
 		public const string SimpleSelect = "pim_catalog_simpleselect";
 
 		/// <summary>
+		/// Multiple choice list
+		/// </summary>
+		public const string MultiSelect = "pim_catalog_multiselect";
+
+		/// <summary>
 		/// Date
 		/// </summary>
 		public const string Date = "pim_catalog_date";
@@ -46,5 +51,15 @@
 		/// Collection of prices. Each price contains a value and a currency.
 		/// </summary>
 		public const string Price = "pim_catalog_price_collection";
+
+		/// <summary>
+		/// Image
+		/// </summary>
+		public const string Image = "pim_catalog_image";
+
+		/// <summary>
+		/// File
+		/// </summary>
+		public const string File = "pim_catalog_file";
 	}
 }
