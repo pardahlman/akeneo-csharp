@@ -118,7 +118,7 @@ namespace Akeneo.Common
 
 		public string ForPagination<TModel>(string parentCode, int page = 1, int limit = 10, bool withCount = false) where TModel : ModelBase
 		{
-			var baseUrl = ForResourceType<TModel>();
+			var baseUrl = ForResourceType<TModel>(parentCode);
 			return $"{baseUrl}?page={page}&limit={limit}&with_count={withCount.ToString().ToLower()}";
 		}
 	}
