@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using Akeneo.Model;
 using Akeneo.Model.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,10 +9,12 @@ namespace Akeneo.Serialization
 	{
 		private static readonly Type Attribute = typeof(AttributeBase);
 		private const string AttributeTypeProp = "type";
+		private static readonly JsonSerializer SnakeCaseSerialzer =
+			new JsonSerializer {ContractResolver = AkeneoSerializerSettings.AkeneoContractResolver};
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			serializer.Serialize(writer, value, typeof(GenericAttribute));
 		}
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -24,37 +24,37 @@ namespace Akeneo.Serialization
 			switch (attributeType)
 			{
 				case AttributeType.Identifier:
-					return obj.ToObject<IdentifierAttribute>();
+					return obj.ToObject<IdentifierAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Boolean:
-					return obj.ToObject<BooleanAttribute>();
+					return obj.ToObject<BooleanAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Date:
-					return obj.ToObject<DateAttribute>();
+					return obj.ToObject<DateAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Metric:
-					return obj.ToObject<MetricAttribute>();
+					return obj.ToObject<MetricAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Number:
-					return obj.ToObject<NumberAttribute>();
+					return obj.ToObject<NumberAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Price:
-					return obj.ToObject<PriceAttribute>();
+					return obj.ToObject<PriceAttribute>(SnakeCaseSerialzer);
 				case AttributeType.SimpleSelect:
-					return obj.ToObject<SimpleSelectAttribute>();
+					return obj.ToObject<SimpleSelectAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Text:
-					return obj.ToObject<TextAttribute>();
+					return obj.ToObject<TextAttribute>(SnakeCaseSerialzer);
 				case AttributeType.TextArea:
-					return obj.ToObject<TextAreaAttribute>();
+					return obj.ToObject<TextAreaAttribute>(SnakeCaseSerialzer);
 				case AttributeType.MultiSelect:
-					return obj.ToObject<MulticastDelegate>();
+					return obj.ToObject<MulticastDelegate>(SnakeCaseSerialzer);
 				case AttributeType.File:
-					return obj.ToObject<FileAttribute>();
+					return obj.ToObject<FileAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Image:
-					return obj.ToObject<ImageAttribute>();
+					return obj.ToObject<ImageAttribute>(SnakeCaseSerialzer);
 				default:
-					return obj.ToObject<GenericAttribute>();
+					return obj.ToObject<GenericAttribute>(SnakeCaseSerialzer);
 			}
 		}
 
 		public override bool CanConvert(Type objectType)
 		{
-			return Attribute.GetTypeInfo().IsAssignableFrom(objectType);
+			return Attribute == objectType;
 		}
 	}
 }
