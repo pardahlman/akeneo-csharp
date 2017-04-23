@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Akeneo.Extensions
+namespace Akeneo.Common
 {
 	public class DictionaryFactory
 	{
