@@ -1,4 +1,4 @@
-﻿namespace Akeneo.Client
+﻿namespace Akeneo.Model.ProductValues
 {
 	public class PriceProductValue
 	{
