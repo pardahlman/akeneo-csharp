@@ -29,12 +29,12 @@ namespace Akeneo.Model.Attributes
 		/// <summary>
 		/// Minimum integer value allowed when the attribute type is `pim_catalog_metric`, `pim_catalog_price` or `pim_catalog_number`
 		/// </summary>
-		public string NumberMin { get; set; }
+		public float? NumberMin { get; set; }
 
 		/// <summary>
 		/// Minimum integer value allowed when the attribute type is `pim_catalog_metric`, `pim_catalog_price` or `pim_catalog_number`
 		/// </summary>
-		public string NumberMax { get; set; }
+		public float? NumberMax { get; set; }
 
 		/// <summary>
 		/// Whether decimals are allowed when the attribute type is `pim_catalog_metric`, `pim_catalog_price` or `pim_catalog_number`
