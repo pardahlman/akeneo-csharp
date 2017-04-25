@@ -9,6 +9,7 @@ using Akeneo.Common;
 using Akeneo.Http;
 using Akeneo.Model;
 using Akeneo.Model.Attributes;
+using Akeneo.Serialization;
 
 namespace Akeneo
 {
