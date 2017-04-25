@@ -9,6 +9,11 @@ namespace Akeneo.Model
 		public const string Area = "Area";
 	}
 
+	public class PowerUnits
+	{
+		public const string Kilowatt = "KILOWATT";
+	}
+
 	public class AreaUnits
 	{
 		public const string SquareMillimeter = "SQUARE_MILLIMETER";
