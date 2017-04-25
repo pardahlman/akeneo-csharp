@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Akeneo.Client;
+using Akeneo.Model.ProductValues;
 using Newtonsoft.Json;
 
 namespace Akeneo.Serialization

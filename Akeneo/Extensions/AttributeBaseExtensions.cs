@@ -4,6 +4,7 @@ using System.Linq;
 using Akeneo.Client;
 using Akeneo.Model;
 using Akeneo.Model.Attributes;
+using Akeneo.Model.ProductValues;
 
 namespace Akeneo.Extensions
 {
