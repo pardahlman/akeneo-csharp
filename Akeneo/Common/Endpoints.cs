@@ -7,5 +7,6 @@
 		public const string Categories = "api/rest/v1/categories";
 		public const string Attributes = "api/rest/v1/attributes";
 		public const string Families = "api/rest/v1/families";
+		public const string MediaFiles = "api/rest/v1/media-files";
 	}
 }
