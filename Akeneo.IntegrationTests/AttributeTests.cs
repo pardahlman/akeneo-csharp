@@ -1,9 +1,15 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Akeneo.Common;
 using Akeneo.Model;
 using Akeneo.Model.Attributes;
+using Akeneo.Serialization;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Akeneo.IntegrationTests
@@ -50,7 +56,7 @@ namespace Akeneo.IntegrationTests
 			/* Create */
 			var number = new NumberAttribute
 			{
-				AvailableLocales = new List<string> {Locales.EnglishUs, Locales.SwedenSwedish},
+				AvailableLocales = new List<string> { Locales.EnglishUs, Locales.SwedenSwedish },
 				Code = "test_2",
 				Group = AkeneoDefaults.DefaultAttributeGroup,
 				NegativeAllowed = true
@@ -69,6 +75,39 @@ namespace Akeneo.IntegrationTests
 			/* Delete */
 			var deleteResponse = await Client.DeleteAsync<NumberAttribute>(number.Code);
 			Assert.True(deleteResponse.Code == HttpStatusCode.MethodNotAllowed, "API does not support removal of attributes");
+		}
+
+		[Fact]
+		public async Task Create_Image_Attribute()
+		{
+			var media = new MediaUpload
+			{
+				Product =
+				{
+					Identifier = "tyfon-bb-1000-1000-3m-3m",
+					Attribute = "Product_Image_Medium"
+				},
+				FilePath = "C:\\tmp\\banhof.png",
+				FileName = "banhof3.png"
+			};
+
+			var response = await Client.CreateAsync(media);
+			var retrieved = await Client.GetManyAsync<MediaFile>();
+		}
+
+		[Fact]
+		public async Task Should_Return()
+		{
+			var product = new Product
+			{
+				Identifier = "product_001",
+			};
+			//var response = await Client.CreateAsync(product);
+			product.Values = new Dictionary<string, List<ProductValue>>
+			{
+				{"multiselect_attribute", new List<ProductValue> {new ProductValue {Data = "foo"}}}
+			};
+			var update = await Client.UpdateAsync(product);
 		}
 	}
 }

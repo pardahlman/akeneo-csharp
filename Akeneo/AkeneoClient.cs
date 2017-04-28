@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Authentication;
@@ -62,6 +64,21 @@ namespace Akeneo
 			var option = model as AttributeOption;
 			var endpoint = _endpointResolver.ForResourceType<TModel>(option?.Attribute ?? string.Empty);
 			var response = await PostAsync(endpoint, model, ct);
+			return response.IsSuccessStatusCode
+				? AkeneoResponse.Success(response.StatusCode)
+				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
+		}
+
+		public async Task<AkeneoResponse> CreateAsync(MediaUpload media, CancellationToken ct = default(CancellationToken))
+		{
+			var filename = media.FileName ?? Path.GetFileName(media.FilePath);
+			var formContent = new MultipartFormDataContent
+			{
+				{new JsonContent(media.Product) , "product" },
+				{ new StreamContent(File.OpenRead(media.FilePath)), "file", filename }
+			};
+			await AddAuthHeaderAsync(ct);
+			var response = await HttpClient.PostAsync(Endpoints.MediaFiles, formContent, ct);
 			return response.IsSuccessStatusCode
 				? AkeneoResponse.Success(response.StatusCode)
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();

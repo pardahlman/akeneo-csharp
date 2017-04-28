@@ -1,8 +1,13 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using Akeneo.Common;
 using Akeneo.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Akeneo.Http
 {
@@ -10,13 +15,14 @@ namespace Akeneo.Http
 	{
 		public const string MediaType = "application/json";
 
-		public JsonContent(object content) : this(content, AkeneoSerializerSettings.Instance){ }
+		public JsonContent(object content) : this(content, AkeneoSerializerSettings.Instance) { }
 
-		public JsonContent(object content, JsonSerializerSettings settings) 
+		public JsonContent(object content, JsonSerializerSettings settings)
 			: base(
 				JsonConvert.SerializeObject(content, settings),
 				Encoding.UTF8,
 				MediaType
-			) { }
+			)
+		{ }
 	}
 }

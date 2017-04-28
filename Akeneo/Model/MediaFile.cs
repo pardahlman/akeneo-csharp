@@ -1,47 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Akeneo.Client;
+using Newtonsoft.Json;
 
 namespace Akeneo.Model
 {
-	internal class MediaFile : ModelBase
+	public class MediaFile : ModelBase
 	{
 		/// <summary>
-		/// The product to which the media file will be associated.
+		/// Media file code
 		/// </summary>
-		public MediaProduct Product { get; set; }
+		public string Code { get; set; }
 
 		/// <summary>
-		/// The binaries of the file
+		/// Original filename of the media file
 		/// </summary>
-		public string File { get; set; }
+		public string OriginalFilename { get; set; }
 
-		public MediaFile()
-		{
-			Product = new MediaProduct();
-		}
+		/// <summary>
+		/// Mime type of the media file
+		/// </summary>
+		public string MimeType { get; set; }
+
+		/// <summary>
+		/// Size of the media file
+		/// </summary>
+		public int Size { get; set; }
+
+		/// <summary>
+		/// Extension of the media file
+		/// </summary>
+		public string Extension { get; set; }
+
+		[JsonProperty("_links")]
+		public Dictionary<string, PaginationLink> Links { get; set; }
 	}
 
-	internal class MediaProduct
+	public static class MediaFileExtension
 	{
-		/// <summary>
-		/// Product Identifier
-		/// </summary>
-		public string Identifier { get; set; }
+		private const string DownloadKey = "download";
 
-		/// <summary>
-		/// Attribute Code
-		/// </summary>
-		public string Attribute { get; set; }
-
-		/// <summary>
-		/// Channel Code
-		/// </summary>
-		public string Scope { get; set; }
-
-		/// <summary>
-		/// Locale Code
-		/// </summary>
-		public string Locale { get; set; }
+		public static Uri GetDownloadUri(this MediaFile file)
+		{
+			var link = file.Links.ContainsKey(DownloadKey)
+				? file.Links[DownloadKey]
+				: throw new KeyNotFoundException($"Expected link collection to contain {DownloadKey}.");
+			return new Uri(link.Href);
+		}
 	}
 }

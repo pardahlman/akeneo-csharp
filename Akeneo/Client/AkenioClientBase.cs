@@ -21,7 +21,8 @@ namespace Akeneo.Client
 			AuthClient = authClient;
 			HttpClient = new HttpClient
 			{
-				BaseAddress = apiEndPoint
+				BaseAddress = apiEndPoint,
+				DefaultRequestHeaders = { Accept = { MediaTypeWithQualityHeaderValue.Parse("*/*") } }
 			};
 		}
 
@@ -89,7 +90,7 @@ namespace Akeneo.Client
 			return response;
 		}
 
-		private async Task AddAuthHeaderAsync(CancellationToken ct = default(CancellationToken))
+		protected async Task AddAuthHeaderAsync(CancellationToken ct = default(CancellationToken))
 		{
 			var tokenResponse = await AuthClient.GetAccessTokenAsync(ct);
 			HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(BearerAuthHeader, tokenResponse.AccessToken);

@@ -43,16 +43,24 @@ namespace Akeneo.Model
 		/// <summary>
 		///  Date of creation
 		/// </summary>
-		public DateTime Created { get; set; }
+		public DateTime? Created { get; set; }
 
 		/// <summary>
 		/// Date of the last update
 		/// </summary>
-		public DateTime Updated { get; set; }
+		public DateTime? Updated { get; set; }
 
 		/// <summary>
 		///  Several associations related to groups and/or other products, grouped by association types 
 		/// </summary>
 		public Dictionary<string,ProductAssociation> Associations { get; set; }
+
+		public Product()
+		{
+			Groups = new List<string>();
+			Categories = new List<string>();
+			Associations = new Dictionary<string, ProductAssociation>();
+			Values = new Dictionary<string, List<ProductValue>>();
+		}
 	}
 }
