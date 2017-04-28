@@ -42,7 +42,7 @@ namespace Akeneo.Serialization
 				case AttributeType.TextArea:
 					return obj.ToObject<TextAreaAttribute>(SnakeCaseSerialzer);
 				case AttributeType.MultiSelect:
-					return obj.ToObject<MulticastDelegate>(SnakeCaseSerialzer);
+					return obj.ToObject<MultiSelectAttribute>(SnakeCaseSerialzer);
 				case AttributeType.File:
 					return obj.ToObject<FileAttribute>(SnakeCaseSerialzer);
 				case AttributeType.Image:
