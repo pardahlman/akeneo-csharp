@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Akeneo.Consts;
 using Akeneo.Model;
 using Akeneo.Model.ProductValues;
 using Akeneo.Serialization;

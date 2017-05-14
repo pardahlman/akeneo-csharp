@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Akeneo.Common;
+using Akeneo.Consts;
 using Akeneo.Model;
 using Akeneo.Model.Attributes;
 using Akeneo.Serialization;

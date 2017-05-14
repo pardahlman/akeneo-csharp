@@ -1,4 +1,4 @@
-﻿namespace Akeneo.Model
+﻿namespace Akeneo.Consts
 {
 	public class Currency
 	{
