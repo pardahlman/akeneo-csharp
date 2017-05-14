@@ -8,5 +8,6 @@
 		public const string Attributes = "api/rest/v1/attributes";
 		public const string Families = "api/rest/v1/families";
 		public const string MediaFiles = "api/rest/v1/media-files";
+		public const string Locale = "api/rest/v1/locales";
 	}
 }

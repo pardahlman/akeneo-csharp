@@ -14,6 +14,7 @@ namespace Akeneo.Common
 		private static readonly Type Category = typeof(Category);
 		private static readonly Type Product = typeof(Product);
 		private static readonly Type MediaFile = typeof(MediaFile);
+		private static readonly Type Locale = typeof(Locale);
 
 		private readonly ConcurrentDictionary<Type, string> _typeToEndpointCache;
 
@@ -110,6 +111,10 @@ namespace Akeneo.Common
 				if (MediaFile.GetTypeInfo().IsAssignableFrom(type))
 				{
 					return Endpoints.MediaFiles;
+				}
+				if (Locale.GetTypeInfo().IsAssignableFrom(type))
+				{
+					return Endpoints.Locale;
 				}
 				throw new NotSupportedException($"Unable to find API endpoint for type {modelType.FullName}");
 			});
