@@ -12,8 +12,8 @@ namespace Akeneo.Serialization
 
 		public static readonly JsonSerializerSettings Instance = new JsonSerializerSettings
 		{
-			Converters = { new ProductConverter(), new AttributeBaseConverter(), new BitArrayConverter() },
-			ContractResolver = AkeneoContractResolver,
+			Converters = { new AttributeBaseConverter() },
+			ContractResolver = AkeneoContractResolver
 		};
 	}
 }
