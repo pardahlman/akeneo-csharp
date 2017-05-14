@@ -34,14 +34,14 @@ namespace Akeneo.IntegrationTests
 				{
 					AvailableLocales = new List<string> {Locales.EnglishUs, Locales.SwedenSwedish},
 					Code = "test_6",
-					Group = AkeneoDefaults.DefaultAttributeGroup,
+					Group = AkeneoDefaults.AttributeGroup,
 					NegativeAllowed = true
 				},
 				new NumberAttribute
 				{
 					AvailableLocales = new List<string> {Locales.EnglishUs, Locales.SwedenSwedish},
 					Code = "test_7",
-					Group = AkeneoDefaults.DefaultAttributeGroup,
+					Group = AkeneoDefaults.AttributeGroup,
 					NegativeAllowed = true
 				}
 			});
@@ -58,7 +58,7 @@ namespace Akeneo.IntegrationTests
 			{
 				AvailableLocales = new List<string> { Locales.EnglishUs, Locales.SwedenSwedish },
 				Code = "test_2",
-				Group = AkeneoDefaults.DefaultAttributeGroup,
+				Group = AkeneoDefaults.AttributeGroup,
 				NegativeAllowed = true
 			};
 
@@ -92,7 +92,6 @@ namespace Akeneo.IntegrationTests
 			};
 
 			var response = await Client.CreateAsync(media);
-			var retrieved = await Client.GetManyAsync<MediaFile>();
 		}
 
 		[Fact]
