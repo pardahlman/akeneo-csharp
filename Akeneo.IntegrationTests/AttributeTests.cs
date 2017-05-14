@@ -91,22 +91,7 @@ namespace Akeneo.IntegrationTests
 				FileName = "banhof3.png"
 			};
 
-			var response = await Client.CreateAsync(media);
-		}
-
-		[Fact]
-		public async Task Should_Return()
-		{
-			var product = new Product
-			{
-				Identifier = "product_001",
-			};
-			//var response = await Client.CreateAsync(product);
-			product.Values = new Dictionary<string, List<ProductValue>>
-			{
-				{"multiselect_attribute", new List<ProductValue> {new ProductValue {Data = "foo"}}}
-			};
-			var update = await Client.UpdateAsync(product);
+			var download = await Client.DownloadAsync("d/c/b/6/dcb68b9fd1dc17bc711d7041c4c817e290596b30_boxer2.png");
 		}
 	}
 }

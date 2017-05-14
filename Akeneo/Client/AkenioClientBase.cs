@@ -81,6 +81,10 @@ namespace Akeneo.Client
 
 		private async Task<HttpResponseMessage> ExecuteAuthenticatedAsync(Func<HttpClient, HttpCallContext, Task<HttpResponseMessage>> func, HttpCallContext context)
 		{
+			if (HttpClient.DefaultRequestHeaders.Authorization == null)
+			{
+				await AddAuthHeaderAsync(context.CancellationToken);
+			}
 			var response = await func(HttpClient, context);
 			if (response.StatusCode == HttpStatusCode.Unauthorized)
 			{

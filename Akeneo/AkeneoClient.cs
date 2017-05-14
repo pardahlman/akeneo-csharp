@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Authentication;
 using Akeneo.Client;
 using Akeneo.Common;
+using Akeneo.Exceptions;
 using Akeneo.Http;
 using Akeneo.Model;
 using Akeneo.Model.Attributes;
@@ -69,21 +71,6 @@ namespace Akeneo
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
 		}
 
-		public async Task<AkeneoResponse> CreateAsync(MediaUpload media, CancellationToken ct = default(CancellationToken))
-		{
-			var filename = media.FileName ?? Path.GetFileName(media.FilePath);
-			var formContent = new MultipartFormDataContent
-			{
-				{new JsonContent(media.Product) , "product" },
-				{ new StreamContent(File.OpenRead(media.FilePath)), "file", filename }
-			};
-			await AddAuthHeaderAsync(ct);
-			var response = await HttpClient.PostAsync(Endpoints.MediaFiles, formContent, ct);
-			return response.IsSuccessStatusCode
-				? AkeneoResponse.Success(response.StatusCode)
-				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
-		}
-
 		public async Task<AkeneoResponse> UpdateAsync<TModel>(TModel model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForResource(model);
@@ -109,6 +96,50 @@ namespace Akeneo
 			return response.IsSuccessStatusCode
 				? AkeneoResponse.Success(response.StatusCode)
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
+		}
+
+		public async Task<AkeneoResponse> UploadAsync(MediaUpload media, CancellationToken ct = default(CancellationToken))
+		{
+			if (!File.Exists(media.FilePath))
+			{
+				throw new FileNotFoundException($"File with path {media.FilePath} not found.");
+			}
+			var filename = media.FileName ?? Path.GetFileName(media.FilePath);
+			var formContent = new MultipartFormDataContent
+			{
+				{new JsonContent(media.Product) , "product" },
+				{ new StreamContent(File.OpenRead(media.FilePath)), "file", filename }
+			};
+
+			var response = await HttpClient.PostAsync(Endpoints.MediaFiles, formContent, ct);
+			if (response.StatusCode == HttpStatusCode.Unauthorized)
+			{
+				await AddAuthHeaderAsync(ct);
+				response = await HttpClient.PostAsync(Endpoints.MediaFiles, new MultipartFormDataContent
+				{
+					{new JsonContent(media.Product) , "product" },
+					{ new StreamContent(File.OpenRead(media.FilePath)), "file", filename }
+				}, ct);
+			}
+
+			return response.IsSuccessStatusCode
+				? AkeneoResponse.Success(response.StatusCode)
+				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
+		}
+
+		public async Task<MediaDownload> DownloadAsync(string mediaCode, CancellationToken ct = default(CancellationToken))
+		{
+			var response = await GetAsync($"{Endpoints.MediaFiles}/{mediaCode}/download", ct);
+			if (response.StatusCode != HttpStatusCode.OK)
+			{
+				var body = await response.Content.ReadAsJsonAsync<AkeneoResponse>();
+				throw new OperationUnsuccessfulException($"Unable to load Media File '{mediaCode}'.", body);
+			}
+			return new MediaDownload
+			{
+				FileName = response.Content.Headers.ContentDisposition.FileName,
+				Stream = await response.Content.ReadAsStreamAsync()
+			};
 		}
 	}
 }
