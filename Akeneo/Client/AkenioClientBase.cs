@@ -21,7 +21,8 @@ namespace Akeneo.Client
 			AuthClient = authClient;
 			HttpClient = new HttpClient
 			{
-				BaseAddress = apiEndPoint
+				BaseAddress = apiEndPoint,
+				DefaultRequestHeaders = { Accept = { MediaTypeWithQualityHeaderValue.Parse("*/*") } }
 			};
 		}
 
@@ -80,6 +81,10 @@ namespace Akeneo.Client
 
 		private async Task<HttpResponseMessage> ExecuteAuthenticatedAsync(Func<HttpClient, HttpCallContext, Task<HttpResponseMessage>> func, HttpCallContext context)
 		{
+			if (HttpClient.DefaultRequestHeaders.Authorization == null)
+			{
+				await AddAuthHeaderAsync(context.CancellationToken);
+			}
 			var response = await func(HttpClient, context);
 			if (response.StatusCode == HttpStatusCode.Unauthorized)
 			{
@@ -89,7 +94,7 @@ namespace Akeneo.Client
 			return response;
 		}
 
-		private async Task AddAuthHeaderAsync(CancellationToken ct = default(CancellationToken))
+		protected async Task AddAuthHeaderAsync(CancellationToken ct = default(CancellationToken))
 		{
 			var tokenResponse = await AuthClient.GetAccessTokenAsync(ct);
 			HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(BearerAuthHeader, tokenResponse.AccessToken);

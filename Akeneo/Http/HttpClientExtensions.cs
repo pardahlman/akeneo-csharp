@@ -31,7 +31,6 @@ namespace Akeneo.Http
 			{
 				Content = content
 			};
-
 			return client.SendAsync(request, ct);
 		}
 	}
