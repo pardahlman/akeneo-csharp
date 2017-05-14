@@ -77,22 +77,5 @@ namespace Akeneo.IntegrationTests
 			var deleteResponse = await Client.DeleteAsync<NumberAttribute>(number.Code);
 			Assert.True(deleteResponse.Code == HttpStatusCode.MethodNotAllowed, "API does not support removal of attributes");
 		}
-
-		[Fact]
-		public async Task Create_Image_Attribute()
-		{
-			var media = new MediaUpload
-			{
-				Product =
-				{
-					Identifier = "tyfon-bb-1000-1000-3m-3m",
-					Attribute = "Product_Image_Medium"
-				},
-				FilePath = "C:\\tmp\\banhof.png",
-				FileName = "banhof3.png"
-			};
-
-			var download = await Client.DownloadAsync("d/c/b/6/dcb68b9fd1dc17bc711d7041c4c817e290596b30_boxer2.png");
-		}
 	}
 }
