@@ -17,7 +17,7 @@
 		/// <summary>
 		/// Regexp expression used to validate any attribute value when the attribute type is `pim_catalog_text` or `pim_catalog_identifier`
 		/// </summary>
-		public string ValidationRegExp { get; set; }
+		public string ValidationRegexp { get; set; }
 
 		
 	}

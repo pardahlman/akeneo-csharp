@@ -6,7 +6,10 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Authentication;
+using Akeneo.Common;
 using Akeneo.Http;
+using Akeneo.Serialization;
+using Newtonsoft.Json;
 
 namespace Akeneo.Client
 {
@@ -46,14 +49,15 @@ namespace Akeneo.Client
 				});
 		}
 
-		protected async Task<HttpResponseMessage> PatchAsJsonAsync<TContent>(string url, TContent content, CancellationToken ct = default(CancellationToken))
+		protected async Task<HttpResponseMessage> PatchAsJsonAsync<TContent>(string url, TContent content, JsonSerializerSettings jsonSettings = null, CancellationToken ct = default(CancellationToken))
 		{
-			return await ExecuteAuthenticatedAsync((client, ctx) => client.PatchAsJsonAsync(ctx.RequestUrl, ctx.Content, ctx.CancellationToken),
+			return await ExecuteAuthenticatedAsync((client, ctx) => client.PatchAsJsonAsync(ctx.RequestUrl, ctx.Content, ctx.JsonSettings, ctx.CancellationToken),
 				new HttpCallContext
 				{
 					CancellationToken = ct,
 					Content = content,
-					RequestUrl = url
+					RequestUrl = url,
+					JsonSettings = jsonSettings ?? AkeneoSerializerSettings.Create
 				});
 		}
 
@@ -68,14 +72,15 @@ namespace Akeneo.Client
 				});
 		}
 
-		protected async Task<HttpResponseMessage> PostAsync<TContent>(string url, TContent content, CancellationToken ct = default(CancellationToken))
+		protected async Task<HttpResponseMessage> PostAsync<TContent>(string url, TContent content, JsonSerializerSettings jsonSettings = null, CancellationToken ct = default(CancellationToken))
 		{
-			return await ExecuteAuthenticatedAsync((client, ctx) => client.PostJsonAsync(ctx.RequestUrl, ctx.Content, ctx.CancellationToken),
+			return await ExecuteAuthenticatedAsync((client, ctx) => client.PostJsonAsync(ctx.RequestUrl, ctx.Content, ctx.JsonSettings, ctx.CancellationToken),
 				new HttpCallContext
 				{
 					CancellationToken = ct,
 					Content = content,
-					RequestUrl = url
+					RequestUrl = url,
+					JsonSettings = jsonSettings ?? AkeneoSerializerSettings.Create
 				});
 		}
 
@@ -111,6 +116,7 @@ namespace Akeneo.Client
 			public string RequestUrl { get; set; }
 			public object Content { get; set; }
 			public CancellationToken CancellationToken { get; set; }
+			public JsonSerializerSettings JsonSettings { get; set; }
 		}
 	}
 }

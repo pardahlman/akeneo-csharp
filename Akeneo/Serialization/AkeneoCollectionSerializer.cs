@@ -14,7 +14,7 @@ namespace Akeneo.Serialization
 			var contentBuilder = new StringBuilder();
 			foreach (var obj in collection)
 			{
-				contentBuilder.Append(JsonConvert.SerializeObject(obj, AkeneoSerializerSettings.Instance));
+				contentBuilder.Append(JsonConvert.SerializeObject(obj, AkeneoSerializerSettings.Update));
 				contentBuilder.AppendLine();
 			}
 			var serializedContent = contentBuilder.ToString();
@@ -26,7 +26,7 @@ namespace Akeneo.Serialization
 			var matches = JsonObjects.Matches(serialized);
 			foreach (Match match in matches)
 			{
-				yield return JsonConvert.DeserializeObject<TType>(match.Value, AkeneoSerializerSettings.Instance);
+				yield return JsonConvert.DeserializeObject<TType>(match.Value, AkeneoSerializerSettings.Update);
 			}
 		}
 	}

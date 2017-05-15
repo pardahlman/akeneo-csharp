@@ -15,7 +15,7 @@ namespace Akeneo.Http
 	{
 		public const string MediaType = "application/json";
 
-		public JsonContent(object content) : this(content, AkeneoSerializerSettings.Instance) { }
+		public JsonContent(object content) : this(content, AkeneoSerializerSettings.Create) { }
 
 		public JsonContent(object content, JsonSerializerSettings settings)
 			: base(

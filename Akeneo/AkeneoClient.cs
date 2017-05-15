@@ -66,7 +66,7 @@ namespace Akeneo
 		{
 			var option = model as AttributeOption;
 			var endpoint = _endpointResolver.ForResourceType<TModel>(option?.Attribute ?? string.Empty);
-			var response = await PostAsync(endpoint, model, ct);
+			var response = await PostAsync(endpoint, model, AkeneoSerializerSettings.Create, ct);
 			return response.IsSuccessStatusCode
 				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink { Href = response.Headers?.Location?.ToString() }))
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
@@ -75,7 +75,7 @@ namespace Akeneo
 		public async Task<AkeneoResponse> UpdateAsync<TModel>(TModel model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForResource(model);
-			var response = await PatchAsJsonAsync(endpoint, model, ct);
+			var response = await PatchAsJsonAsync(endpoint, model, AkeneoSerializerSettings.Update, ct);
 			return response.IsSuccessStatusCode
 				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink { Href = response.Headers?.Location?.ToString() }))
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();

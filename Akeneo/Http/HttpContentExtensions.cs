@@ -16,7 +16,7 @@ namespace Akeneo.Http
 				return default(TType);
 			}
 			var serialied = await content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<TType>(serialied, settings ?? AkeneoSerializerSettings.Instance);
+			return JsonConvert.DeserializeObject<TType>(serialied, settings ?? AkeneoSerializerSettings.Create);
 		}
 	}
 }

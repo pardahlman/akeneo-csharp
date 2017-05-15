@@ -69,5 +69,7 @@ namespace Akeneo
 		Task<AkeneoResponse> UpdateAsync<TModel>(TModel model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
 		Task<List<AkeneoBatchResponse>> CreateOrUpdateAsync<TModel>(IEnumerable<TModel> model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
 		Task<AkeneoResponse> DeleteAsync<TModel>(string code, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
+		Task<AkeneoResponse> UploadAsync(MediaUpload media, CancellationToken ct = default(CancellationToken));
+		Task<MediaDownload> DownloadAsync(string mediaCode, CancellationToken ct = default(CancellationToken));
 	}
 }
