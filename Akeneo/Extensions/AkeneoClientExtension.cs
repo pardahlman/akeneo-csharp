@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Client;
+using Akeneo.Consts;
 using Akeneo.Model;
 
 namespace Akeneo.Extensions
@@ -24,7 +25,7 @@ namespace Akeneo.Extensions
 			{
 				var pagination = await client.GetManyAsync<TModel>(parentCode, page, limit, ct: ct);
 				result.AddRange(pagination.GetItems());
-				hasMore = pagination.Links.ContainsKey("next");
+				hasMore = pagination.Links.ContainsKey(PaginationLinks.Next);
 				page++;
 			} while (hasMore);
 			return result;

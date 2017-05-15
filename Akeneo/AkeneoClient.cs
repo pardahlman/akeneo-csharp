@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Akeneo.Authentication;
 using Akeneo.Client;
 using Akeneo.Common;
+using Akeneo.Consts;
 using Akeneo.Exceptions;
 using Akeneo.Http;
 using Akeneo.Model;
@@ -67,7 +68,7 @@ namespace Akeneo
 			var endpoint = _endpointResolver.ForResourceType<TModel>(option?.Attribute ?? string.Empty);
 			var response = await PostAsync(endpoint, model, ct);
 			return response.IsSuccessStatusCode
-				? AkeneoResponse.Success(response.StatusCode)
+				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink { Href = response.Headers?.Location?.ToString() }))
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
 		}
 
@@ -76,7 +77,7 @@ namespace Akeneo
 			var endpoint = _endpointResolver.ForResource(model);
 			var response = await PatchAsJsonAsync(endpoint, model, ct);
 			return response.IsSuccessStatusCode
-				? AkeneoResponse.Success(response.StatusCode)
+				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink { Href = response.Headers?.Location?.ToString() }))
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
 		}
 
@@ -123,7 +124,7 @@ namespace Akeneo
 			}
 
 			return response.IsSuccessStatusCode
-				? AkeneoResponse.Success(response.StatusCode)
+				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink{ Href = response.Headers?.Location?.ToString()}))
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
 		}
 
