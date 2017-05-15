@@ -108,7 +108,7 @@ namespace Akeneo
 			var filename = media.FileName ?? Path.GetFileName(media.FilePath);
 			var formContent = new MultipartFormDataContent
 			{
-				{new JsonContent(media.Product) , "product" },
+				{new JsonContent(media.Product, AkeneoSerializerSettings.Update) , "product" },
 				{ new StreamContent(File.OpenRead(media.FilePath)), "file", filename }
 			};
 
@@ -118,11 +118,10 @@ namespace Akeneo
 				await AddAuthHeaderAsync(ct);
 				response = await HttpClient.PostAsync(Endpoints.MediaFiles, new MultipartFormDataContent
 				{
-					{new JsonContent(media.Product) , "product" },
+					{new JsonContent(media.Product, AkeneoSerializerSettings.Update) , "product" },
 					{ new StreamContent(File.OpenRead(media.FilePath)), "file", filename }
 				}, ct);
 			}
-
 			return response.IsSuccessStatusCode
 				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink{ Href = response.Headers?.Location?.ToString()}))
 				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
