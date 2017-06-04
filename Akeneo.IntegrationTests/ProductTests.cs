@@ -3,7 +3,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Akeneo.Common;
 using Akeneo.Model;
+using Akeneo.Search;
 using Xunit;
+using Category = Akeneo.Search.Category;
+using Family = Akeneo.Search.Family;
+using ProductValue = Akeneo.Search.ProductValue;
 
 namespace Akeneo.IntegrationTests
 {
@@ -22,10 +26,22 @@ namespace Akeneo.IntegrationTests
 			var createResponse = await Client.CreateAsync(product);
 			var updateResponse = await Client.UpdateAsync(product);
 			var deleteResponse = await Client.DeleteAsync<Product>(product.Identifier);
-
 			Assert.Equal(createResponse.Code, HttpStatusCode.Created);
 			Assert.Equal(updateResponse.Code, HttpStatusCode.NoContent);
 			Assert.Equal(deleteResponse.Code, HttpStatusCode.NoContent);
+		}
+
+		[Fact]
+		public async Task Should_Be_Able_To_Search()
+		{
+			var result = await Client.SearchAsync<Product>(new List<Criteria>
+			{
+				ProductValue.Contains("sku", "tv"),
+				Category.In("Default_Base_Pack_Template"),
+				Family.In("Default_Base_Pack_Template"),
+				Completeness.Equal(100, AkeneoDefaults.Channel),
+				Status.Enabled()
+			});
 		}
 	}
 }

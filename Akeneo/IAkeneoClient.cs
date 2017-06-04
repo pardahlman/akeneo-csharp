@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Client;
 using Akeneo.Model;
+using Akeneo.Search;
 
 namespace Akeneo
 {
@@ -71,5 +72,8 @@ namespace Akeneo
 		Task<AkeneoResponse> DeleteAsync<TModel>(string code, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
 		Task<AkeneoResponse> UploadAsync(MediaUpload media, CancellationToken ct = default(CancellationToken));
 		Task<MediaDownload> DownloadAsync(string mediaCode, CancellationToken ct = default(CancellationToken));
+		Task<PaginationResult<TModel>> SearchAsync<TModel>(IEnumerable<Criteria> criterias, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
+		Task<PaginationResult<TModel>> SearchAsync<TModel>(Dictionary<string, List<Criteria>> criterias, string scope = null, string locale = null, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
+		Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase;
 	}
 }

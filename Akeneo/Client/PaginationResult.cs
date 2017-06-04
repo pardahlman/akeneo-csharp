@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using Newtonsoft.Json;
 
 namespace Akeneo.Client
 {
 	public class PaginationResult<TContent>
 	{
+		public string Message { get; set; }
+
+		public HttpStatusCode Code { get; set; }
+
 		[JsonProperty("_links")]
 		public Dictionary<string, PaginationLink> Links { get; set; }
 

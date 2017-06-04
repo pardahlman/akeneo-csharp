@@ -14,7 +14,7 @@ namespace Akeneo.IntegrationTests
 			{
 				Product =
 				{
-					Identifier = "tyfon-bb-1000-1000-3m-3m",
+					Identifier = "boxer-tel-0m-0m",
 					Attribute = "Product_Image_Medium"
 				},
 				FilePath = "C:\\tmp\\product_logo.png"

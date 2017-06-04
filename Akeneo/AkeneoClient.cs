@@ -14,6 +14,7 @@ using Akeneo.Exceptions;
 using Akeneo.Http;
 using Akeneo.Model;
 using Akeneo.Model.Attributes;
+using Akeneo.Search;
 using Akeneo.Serialization;
 
 namespace Akeneo
@@ -21,6 +22,7 @@ namespace Akeneo
 	public class AkeneoClient : AkenioClientBase, IAkeneoClient
 	{
 		private readonly EndpointResolver _endpointResolver;
+		private SearchQueryBuilder _searchBuilder;
 
 		public AkeneoClient(AkeneoOptions options)
 			: this(options.ApiEndpoint, new AuthenticationClient(options.ApiEndpoint, options.ClientId, options.ClientSecret, options.UserName, options.Password)) { }
@@ -28,6 +30,7 @@ namespace Akeneo
 		public AkeneoClient(Uri apiEndPoint, IAuthenticationClient authClient) : base(apiEndPoint, authClient)
 		{
 			_endpointResolver = new EndpointResolver();
+			_searchBuilder = new SearchQueryBuilder();
 		}
 
 		public async Task<TModel> GetAsync<TModel>(string code, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
@@ -46,6 +49,30 @@ namespace Akeneo
 			return response.IsSuccessStatusCode
 				? await response.Content.ReadAsJsonAsync<TModel>()
 				: default(TModel);
+		}
+
+		public Task<PaginationResult<TModel>> SearchAsync<TModel>(IEnumerable<Criteria> criterias, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+		{
+			var searchDictionary = _searchBuilder.GetSearchDictionary(criterias);
+			var scope = _searchBuilder.GetChannels(criterias);
+			var locale = _searchBuilder.GetLocales(criterias);
+
+			return SearchAsync<TModel>(searchDictionary, scope, locale, ct);
+		}
+
+		public Task<PaginationResult<TModel>> SearchAsync<TModel>(Dictionary<string, List<Criteria>> criterias, string scope = null, string locale = null, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+		{
+			var searchQuery = _searchBuilder.GetQueryString(criterias, scope, locale);
+			return FilterAsync<TModel>(searchQuery, ct);
+		}
+
+		public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+		{
+			var endpoint = _endpointResolver.ForResourceType<TModel>();
+			var response = await GetAsync($"{endpoint}{queryString}", ct);
+			var result = await response.Content.ReadAsJsonAsync<PaginationResult<TModel>>();
+			result.Code = response.StatusCode;
+			return result;
 		}
 
 		public Task<PaginationResult<TModel>> GetManyAsync<TModel>(int page = 1, int limit = 10, bool withCount = false, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
