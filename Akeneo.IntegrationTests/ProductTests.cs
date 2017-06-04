@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Common;
 using Akeneo.Model;
@@ -42,6 +43,12 @@ namespace Akeneo.IntegrationTests
 				Completeness.Equal(100, AkeneoDefaults.Channel),
 				Status.Enabled()
 			});
+		}
+
+		[Fact]
+		public async Task Should_Be_Able_To_Update_With_Dynamic_Object()
+		{
+			var result = await Client.UpdateAsync<Product>("tyfon-tv-6m-0m-company", new {categories = new []{ "boxer" } });
 		}
 	}
 }

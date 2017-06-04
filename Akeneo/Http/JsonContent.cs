@@ -19,7 +19,7 @@ namespace Akeneo.Http
 
 		public JsonContent(object content, JsonSerializerSettings settings)
 			: base(
-				JsonConvert.SerializeObject(content, settings),
+				content is string ? (string) content : JsonConvert.SerializeObject(content, settings),
 				Encoding.UTF8,
 				MediaType
 			)

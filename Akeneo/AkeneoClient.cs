@@ -22,7 +22,7 @@ namespace Akeneo
 	public class AkeneoClient : AkenioClientBase, IAkeneoClient
 	{
 		private readonly EndpointResolver _endpointResolver;
-		private SearchQueryBuilder _searchBuilder;
+		private readonly SearchQueryBuilder _searchBuilder;
 
 		public AkeneoClient(AkeneoOptions options)
 			: this(options.ApiEndpoint, new AuthenticationClient(options.ApiEndpoint, options.ClientId, options.ClientSecret, options.UserName, options.Password)) { }
@@ -102,6 +102,15 @@ namespace Akeneo
 		public async Task<AkeneoResponse> UpdateAsync<TModel>(TModel model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForResource(model);
+			var response = await PatchAsJsonAsync(endpoint, model, AkeneoSerializerSettings.Update, ct);
+			return response.IsSuccessStatusCode
+				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink { Href = response.Headers?.Location?.ToString() }))
+				: await response.Content.ReadAsJsonAsync<AkeneoResponse>();
+		}
+
+		public async Task<AkeneoResponse> UpdateAsync<TModel>(string identifier, object model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+		{
+			var endpoint = $"{_endpointResolver.ForResourceType<TModel>()}/{identifier}";
 			var response = await PatchAsJsonAsync(endpoint, model, AkeneoSerializerSettings.Update, ct);
 			return response.IsSuccessStatusCode
 				? AkeneoResponse.Success(response.StatusCode, new KeyValuePair<string, PaginationLink>(PaginationLinks.Location, new PaginationLink { Href = response.Headers?.Location?.ToString() }))

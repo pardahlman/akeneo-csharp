@@ -10,4 +10,6 @@ namespace Akeneo.Common
 			return kvps.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 		}
 	}
+
+	public class UpdateModel : Dictionary<string, object> { }
 }
