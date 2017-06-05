@@ -4,6 +4,17 @@
 
 > .NET Client to consume [Akeneo PIM](https://www.akeneo.com/)'s [RESTful API](https://api.akeneo.com/).
 
+## Overview
+
+* Runs on .NET Core and .NET Framework
+* Create, update and delete resources from the API
+* Upload and download media files
+* Search and filter products
+* Strongly typed attributes, search criterias and more
+* Convenience classes for creating product values
+
+ :blue_book: Full documentation at [`akeneonet.readthedocs.io`](http://akeneonet.readthedocs.io/en/latest/).
+
 ## Getting started
 
 ### Install NuGet package
