@@ -53,17 +53,8 @@ namespace Akeneo
 
 		public Task<PaginationResult<TModel>> SearchAsync<TModel>(IEnumerable<Criteria> criterias, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
-			var searchDictionary = _searchBuilder.GetSearchDictionary(criterias);
-			var scope = _searchBuilder.GetChannels(criterias);
-			var locale = _searchBuilder.GetLocales(criterias);
-
-			return SearchAsync<TModel>(searchDictionary, scope, locale, ct);
-		}
-
-		public Task<PaginationResult<TModel>> SearchAsync<TModel>(Dictionary<string, List<Criteria>> criterias, string scope = null, string locale = null, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
-		{
-			var searchQuery = _searchBuilder.GetQueryString(criterias, scope, locale);
-			return FilterAsync<TModel>(searchQuery, ct);
+			var queryString = _searchBuilder.GetQueryString(criterias);
+			return FilterAsync<TModel>(queryString, ct);
 		}
 
 		public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
