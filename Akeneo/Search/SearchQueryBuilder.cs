@@ -55,7 +55,7 @@ namespace Akeneo.Search
 			Add<Completeness>(result, criterias, Completeness.Key);
 			Add<GroupCriteria>(result, criterias, GroupCriteria.Key);
 			Add<Family>(result, criterias, Family.Key);
-			Add<CreatedCriteria>(result, criterias, CreatedCriteria.Key);
+			Add<Created>(result, criterias, Created.Key);
 			Add<UpdatedCriteria>(result, criterias, UpdatedCriteria.Key);
 			AddProductValueCriterias(result, criterias);
 

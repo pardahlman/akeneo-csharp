@@ -3,67 +3,67 @@ using System.Collections.Generic;
 
 namespace Akeneo.Search
 {
-	public class CreatedCriteria : Criteria
+	public class Created : Criteria
 	{
 		public const string Key = "created";
 
-		public static CreatedCriteria Equals(DateTime date)
+		public static Created Equals(DateTime date)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.Equal,
 				Value = date
 			};
 		}
 
-		public static CreatedCriteria NotEquals(DateTime date)
+		public static Created NotEquals(DateTime date)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.NotEqual,
 				Value = date
 			};
 		}
 
-		public static CreatedCriteria Greater(DateTime date)
+		public static Created Greater(DateTime date)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.Greater,
 				Value = date
 			};
 		}
 
-		public static CreatedCriteria Lower(DateTime date)
+		public static Created Lower(DateTime date)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.Lower,
 				Value = date
 			};
 		}
 
-		public static CreatedCriteria Between(DateTime start, DateTime stop)
+		public static Created Between(DateTime start, DateTime stop)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.Between,
 				Value = new List<DateTime>{ start, stop}
 			};
 		}
 
-		public static CreatedCriteria NotBetween(DateTime start, DateTime stop)
+		public static Created NotBetween(DateTime start, DateTime stop)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.NotBetween,
 				Value = new List<DateTime> { start, stop }
 			};
 		}
 
-		public static CreatedCriteria SinceDays(int dayCount)
+		public static Created SinceDays(int dayCount)
 		{
-			return new CreatedCriteria
+			return new Created
 			{
 				Operator = Operators.SinceDays,
 				Value = dayCount
