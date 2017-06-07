@@ -1,1 +1,0 @@
-Write-Output "No tests :("
