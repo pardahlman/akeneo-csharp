@@ -18,4 +18,6 @@ Akeneo.NET is a .NET client for `Akeneo PIM <https://www.akeneo.com/>`_'s `RESTf
    filter-and-search
    updating-resources
    media-files
+   logging
+   contributing
 
