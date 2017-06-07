@@ -6,8 +6,8 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Akeneo.Authentication;
-using Akeneo.Common;
 using Akeneo.Http;
+using Akeneo.Logging;
 using Akeneo.Serialization;
 using Newtonsoft.Json;
 
@@ -18,6 +18,7 @@ namespace Akeneo.Client
 		protected readonly IAuthenticationClient AuthClient;
 		protected readonly HttpClient HttpClient;
 		private const string BearerAuthHeader = "Bearer";
+		private readonly ILog _logger = LogProvider.For<AkenioClientBase>();
 
 		protected AkenioClientBase(Uri apiEndPoint, IAuthenticationClient authClient)
 		{
@@ -93,8 +94,13 @@ namespace Akeneo.Client
 			var response = await func(HttpClient, context);
 			if (response.StatusCode == HttpStatusCode.Unauthorized)
 			{
+				_logger.Info($"The call to '{context.RequestUrl}' was unauthorized. Adding Auth Headers.");
 				await AddAuthHeaderAsync(context.CancellationToken);
 				response = await func(HttpClient, context);
+			}
+			if (!response.IsSuccessStatusCode)
+			{
+				_logger.Warn($"The request to '{context.RequestUrl}' was unsuccuessful. Status code: {response.StatusCode}. Response body: '{await response.Content.ReadAsStringAsync()}'.");
 			}
 			return response;
 		}

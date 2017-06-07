@@ -15,12 +15,17 @@
     <PackageTags>akeneo, pim</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
+    <DefineConstants>NETSTANDARD1_5, LIBLOG_PORTABLE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
 </Project>
