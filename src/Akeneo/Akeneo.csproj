@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.5;net451</TargetFrameworks>
     <PackageId>Akeneo.NET</PackageId>
-    <VersionPrefix>0.1.13</VersionPrefix>
+    <VersionPrefix>0.1.14</VersionPrefix>
     <Authors>pardahlman</Authors>
     <Company></Company>
     <Product>Akeneo .NET Client</Product>
