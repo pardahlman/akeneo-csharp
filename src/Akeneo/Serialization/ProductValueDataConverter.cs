@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Akeneo.Client;
 using Akeneo.Model.ProductValues;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,7 +19,10 @@ namespace Akeneo.Serialization
 		{
 			if (reader.TokenType == JsonToken.String)
 			{
-				if (float.TryParse((string)reader.Value, out float number))
+                if(reader.Value == null)
+                    return reader.Value;
+
+                if (float.TryParse((string)reader.Value, out float number))
 				{
 					return number;
 				}
@@ -35,7 +39,12 @@ namespace Akeneo.Serialization
 				var obj = JObject.Load(reader);
 				if (IsMetricValue(obj))
 				{
-					return obj.ToObject<MetricProductValue>();
+                    var metricVal = new MetricProductValue
+                    {
+                        Amount = obj["amount"].Value<string>() != null ? obj["amount"].ToObject<float>() : float.NaN,
+                        Unit = obj["unit"].ToObject<string>()
+                    };
+					return metricVal;
 				}
 			}
 
@@ -52,7 +61,16 @@ namespace Akeneo.Serialization
 				}
 				if (array.First.Type == JTokenType.Object)
 				{
-					return array.ToObject<List<PriceProductValue>>();
+				    var items = array
+                        .Select(x => new PriceProductValue
+				        {
+                            Amount = x["amount"].Value<string>() != null ? x["amount"].ToObject<float>() : float.NaN,
+                            Currency = x["currency"].ToObject<string>()
+
+                        }).ToList();
+
+				    return items;
+				    //return array.ToObject<List<PriceProductValue>>();
 				}
 				return serializer.Deserialize<List<PriceProductValue>>(reader);
 			}

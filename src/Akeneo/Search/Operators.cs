@@ -10,10 +10,10 @@
 		public const string Unclassified = "UNCLASSIFIED";
 		public const string Equal = "=";
 		public const string NotEqual = "!=";
-		public const string Greater = "<";
-		public const string GreaterOrEqual = "<=";
-		public const string Lower = ">";
-		public const string LowerOrEqual = ">=";
+		public const string Greater = ">";
+		public const string GreaterOrEqual = ">=";
+		public const string Lower = "<";
+		public const string LowerOrEqual = "<=";
 		public const string GreaterOnAllLocales = "GREATER THAN ON ALL LOCALES";
 		public const string GreaterOrEqualOnAllLocales = "GREATER OR EQUALS THAN ON ALL LOCALES";
 		public const string LowerOnAllLocales = "LOWER THAN ON ALL LOCALES";
