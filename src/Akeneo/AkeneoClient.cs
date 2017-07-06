@@ -62,15 +62,31 @@ namespace Akeneo
 			return FilterAsync<TModel>(queryString, ct);
 		}
 
-		public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+        public Task<PaginationResult<TModel>> SearchAsync<TModel>(IEnumerable<Criteria> criterias, int limit = 10, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+        {
+            var queryString = _searchBuilder.GetQueryString(criterias);
+            return FilterAsync<TModel>(queryString, limit, ct);
+        }
+
+        public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, int limit = 10, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForResourceType<TModel>();
 			_logger.Debug($"Filtering resource '{typeof(TModel).Name}' from URL '{endpoint}' with query '{queryString}'.");
-			var response = await GetAsync($"{endpoint}{queryString}", ct);
+			var response = await GetAsync($"{endpoint}{queryString}&limit={limit}", ct);
 			var result = await response.Content.ReadAsJsonAsync<PaginationResult<TModel>>();
 			result.Code = response.StatusCode;
 			return result;
 		}
+
+        public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+        {
+            var endpoint = _endpointResolver.ForResourceType<TModel>();
+            _logger.Debug($"Filtering resource '{typeof(TModel).Name}' from URL '{endpoint}' with query '{queryString}'.");
+            var response = await GetAsync($"{endpoint}{queryString}", ct);
+            var result = await response.Content.ReadAsJsonAsync<PaginationResult<TModel>>();
+            result.Code = response.StatusCode;
+            return result;
+        }
 
 		public Task<PaginationResult<TModel>> GetManyAsync<TModel>(int page = 1, int limit = 10, bool withCount = false, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
