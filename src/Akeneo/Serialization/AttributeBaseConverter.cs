@@ -10,7 +10,11 @@ namespace Akeneo.Serialization
 		private static readonly Type Attribute = typeof(AttributeBase);
 		private const string AttributeTypeProp = "type";
 		private static readonly JsonSerializer SnakeCaseSerialzer =
-			new JsonSerializer {ContractResolver = AkeneoSerializerSettings.AkeneoContractResolver};
+			new JsonSerializer
+			{
+				ContractResolver = AkeneoSerializerSettings.AkeneoContractResolver,
+				NullValueHandling = NullValueHandling.Ignore
+			};
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
