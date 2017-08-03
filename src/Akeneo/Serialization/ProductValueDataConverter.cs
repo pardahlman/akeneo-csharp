@@ -48,11 +48,11 @@ namespace Akeneo.Serialization
 				}
 				if (array.First.Type == JTokenType.String)
 				{
-					return array.ToObject<List<string>>();
+					return array.ToObject<List<string>>(serializer);
 				}
 				if (array.First.Type == JTokenType.Object)
 				{
-					return array.ToObject<List<PriceProductValue>>();
+					return array.ToObject<List<PriceProductValue>>(serializer);
 				}
 				return serializer.Deserialize<List<PriceProductValue>>(reader);
 			}
