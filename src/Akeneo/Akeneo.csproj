@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.5;net451</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <PackageId>Akeneo.NET</PackageId>
     <VersionPrefix>0.1.14</VersionPrefix>
     <Authors>pardahlman</Authors>
@@ -13,17 +13,18 @@
     <RepositoryUrl>https://github.com/pardahlman/akeneo-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>akeneo, pim</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
-    <DefineConstants>NETSTANDARD1_5, LIBLOG_PORTABLE</DefineConstants>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>NETSTANDARD2_0, LIBLOG_PORTABLE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,12 +38,10 @@ namespace Akeneo.IntegrationTests
 		{
 			var result = await Client.SearchAsync<Product>(new List<Criteria>
 			{
-				ProductValue.Contains("sku", "tv"),
-				Category.In("Default_Base_Pack_Template"),
-				Family.In("Default_Base_Pack_Template"),
-				Completeness.Equal(100, AkeneoDefaults.Channel),
-				Status.Enabled()
+				ProductValue.Contains("identifier", "807712"),
 			});
+
+		    Console.WriteLine(result.Message);
 		}
 
 		[Fact]
