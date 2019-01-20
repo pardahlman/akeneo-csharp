@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>akeneo, pim</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2</Version>
+    <Version>1.3</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
