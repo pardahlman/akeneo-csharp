@@ -36,13 +36,15 @@ namespace Akeneo.IntegrationTests
 		[Fact]
 		public async Task Should_Be_Able_To_Search()
 		{
-			var result = await Client.SearchAsync<Product>(new List<Criteria>
-			{
-				ProductValue.Contains("identifier", "807712"),
-			});
-
-		    Console.WriteLine(result.Message);
-		}
+		    var result = await Client.SearchAsync<Product>(new List<Criteria>
+		    {
+		        ProductValue.Contains("sku", "tv"),
+		        Category.In("Default_Base_Pack_Template"),
+		        Family.In("Default_Base_Pack_Template"),
+		        Completeness.Equal(100, AkeneoDefaults.Channel),
+		        Status.Enabled()
+		    });
+        }
 
 		[Fact]
 		public async Task Should_Be_Able_To_Update_With_Dynamic_Object()
