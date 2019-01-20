@@ -11,29 +11,29 @@ namespace Akeneo.Model
 		public string Identifier { get; set; }
 
 		/// <summary>
-		/// Whether the product is enable
-		/// </summary>
-		public bool Enabled { get; set; }
-
-		/// <summary>
 		///  Family code from which the product inherits its attributes and attributes requirements 
 		/// </summary>
 		public string Family { get; set; }
 
-		/// <summary>
-		///  Codes of the categories in which the product is classified 
-		/// </summary>
-		public List<string> Categories { get; set; }
-
+        /// <summary>
+        ///  Code of the parent product model when the product is a variant (only available since the 2.0). This parent can be modified since the 2.3. 
+        /// </summary>
+        public string Parent { get; set; }
+        
 		/// <summary>
 		/// Codes of the groups to which the product belong 
 		/// </summary>
 		public List<string> Groups { get; set; }
 
-		/// <summary>
-		/// Code of the variant group in which the product is 
-		/// </summary>
-		public string VariantGroup { get; set; }
+	    /// <summary>
+	    ///  Codes of the categories in which the product is classified 
+	    /// </summary>
+	    public List<string> Categories { get; set; }
+
+        /// <summary>
+        /// Whether the product is enable
+        /// </summary>
+        public bool Enabled { get; set; }
 
 		/// <summary>
 		///  Product attributes values
@@ -55,7 +55,12 @@ namespace Akeneo.Model
 		/// </summary>
 		public Dictionary<string,ProductAssociation> Associations { get; set; }
 
-		public Product()
+        /// <summary>
+        ///  Status of the product regarding the user permissions (only available since the v2.0 in the Enterprise Edition)  
+        /// </summary>
+        public Dictionary<string,string> Metadata { get; set; }
+
+        public Product()
 		{
 			Groups = new List<string>();
 			Categories = new List<string>();
