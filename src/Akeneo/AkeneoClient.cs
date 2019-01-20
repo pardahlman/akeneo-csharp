@@ -77,7 +77,7 @@ namespace Akeneo
 			return GetManyAsync<TModel>(null, page, limit, withCount, ct);
 		}
 
-		public async Task<PaginationResult<TModel>> GetManyAsync<TModel>(string parentCode, int page = 1, int limit = 10, bool withCount = false, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+        public async Task<PaginationResult<TModel>> GetManyAsync<TModel>(string parentCode, int page = 1, int limit = 10, bool withCount = false, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForPagination<TModel>(parentCode, page, limit, withCount);
 			_logger.Debug($"Getting multiple resource '{typeof(TModel).Name}' from URL '{endpoint}'.");
@@ -85,6 +85,28 @@ namespace Akeneo
 			return response.IsSuccessStatusCode
 				? await response.Content.ReadAsJsonAsync<PaginationResult<TModel>>()
 				: PaginationResult<TModel>.Empty;
+		}
+
+        public async Task<List<TModel>> GetAllAsync<TModel>(string cursor = null, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+		{
+			var endpoint = _endpointResolver.WithSearchAfter<TModel>(100, cursor);
+			_logger.Debug($"Getting multiple resource '{typeof(TModel).Name}' from URL '{endpoint}'.");
+			var response = await GetAsync(endpoint, ct);
+
+		    if (!response.IsSuccessStatusCode) return new List<TModel>();
+
+		    PaginationResult<TModel> paginationResult = await response.Content.ReadAsJsonAsync<PaginationResult<TModel>>();
+		    var items = paginationResult.GetItems();
+                
+		    var nextCursor = paginationResult.Links.GetCursor();
+
+		    if (nextCursor != null)
+		    {
+		        var nextItems = await GetAllAsync<TModel>(nextCursor, ct);
+		        items.AddRange(nextItems);
+		    }
+
+		    return items;
 		}
 
 		public async Task<AkeneoResponse> CreateAsync<TModel>(TModel model, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase

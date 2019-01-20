@@ -141,5 +141,13 @@ namespace Akeneo.Common
 			var baseUrl = ForResourceType<TModel>(parentCode);
 			return $"{baseUrl}?page={page}&limit={limit}&with_count={withCount.ToString().ToLower()}";
 		}
+
+		public string WithSearchAfter<TModel>(int limit = 100, string searchAfter = null) where TModel : ModelBase
+		{
+			var baseUrl = ForResourceType<TModel>();
+		    return searchAfter == null
+		        ? $"{baseUrl}?pagination_type=search_after&limit={limit}"
+		        : $"{baseUrl}?pagination_type=search_after&limit={limit}&search_after={searchAfter}";
+		}
 	}
 }
