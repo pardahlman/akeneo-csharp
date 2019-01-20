@@ -28,9 +28,9 @@ namespace Akeneo.IntegrationTests
 			var createResponse = await Client.CreateAsync(product);
 			var updateResponse = await Client.UpdateAsync(product);
 			var deleteResponse = await Client.DeleteAsync<Product>(product.Identifier);
-			Assert.Equal(createResponse.Code, HttpStatusCode.Created);
-			Assert.Equal(updateResponse.Code, HttpStatusCode.NoContent);
-			Assert.Equal(deleteResponse.Code, HttpStatusCode.NoContent);
+			Assert.Equal(HttpStatusCode.Created, createResponse.Code);
+			Assert.Equal(HttpStatusCode.NoContent, updateResponse.Code);
+			Assert.Equal(HttpStatusCode.NoContent, deleteResponse.Code);
 		}
 
 		[Fact]

@@ -102,7 +102,7 @@ namespace Akeneo.Tests.Serialization
 
 			/* Assert */
 			Assert.IsType<MetricProductValue>(result);
-			Assert.Equal(((MetricProductValue)result).Amount, 13f);
+			Assert.Equal(13f, ((MetricProductValue)result).Amount);
 			Assert.Equal(((MetricProductValue)result).Unit, PowerUnits.Kilowatt);
 		}
 
@@ -122,9 +122,9 @@ namespace Akeneo.Tests.Serialization
 			/* Assert */
 			if (result is List<string> deserliazed)
 			{
-				Assert.Equal(deserliazed[0], "red");
-				Assert.Equal(deserliazed[1], "black");
-				Assert.Equal(deserliazed[2], "grey");
+				Assert.Equal("red", deserliazed[0]);
+				Assert.Equal("black", deserliazed[1]);
+				Assert.Equal("grey", deserliazed[2]);
 			}
 			else
 			{
@@ -148,9 +148,9 @@ namespace Akeneo.Tests.Serialization
 			/* Assert */
 			if (result is List<PriceProductValue> deserliazed)
 			{
-				Assert.Equal(deserliazed[0].Amount, 45d);
+				Assert.Equal(45d, deserliazed[0].Amount);
 				Assert.Equal(deserliazed[0].Currency, Currency.USD);
-				Assert.Equal(deserliazed[1].Amount, 56);
+				Assert.Equal(56, deserliazed[1].Amount);
 				Assert.Equal(deserliazed[1].Currency, Currency.EUR);
 			}
 			else

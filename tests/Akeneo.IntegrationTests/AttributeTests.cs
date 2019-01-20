@@ -23,7 +23,7 @@ namespace Akeneo.IntegrationTests
 			var pagination = await Client.GetManyAsync<AttributeBase>();
 
 			Assert.NotNull(pagination);
-			Assert.Equal(pagination.CurrentPage, 1);
+			Assert.Equal(1, pagination.CurrentPage);
 		}
 
 		[Fact]
@@ -48,7 +48,7 @@ namespace Akeneo.IntegrationTests
 			});
 
 			Assert.NotNull(result);
-			Assert.Equal(result.Count, 2);
+			Assert.Equal(2, result.Count);
 		}
 
 		[Fact]
@@ -65,13 +65,13 @@ namespace Akeneo.IntegrationTests
 
 			var createResponse = await Client.CreateAsync(number);
 
-			Assert.Equal(createResponse.Code, HttpStatusCode.Created);
+			Assert.Equal(HttpStatusCode.Created, createResponse.Code);
 
 			/* Update */
 			number.NegativeAllowed = false;
 			var updateResponse = await Client.UpdateAsync(number);
 
-			Assert.Equal(updateResponse.Code, HttpStatusCode.NoContent);
+			Assert.Equal(HttpStatusCode.NoContent, updateResponse.Code);
 
 			/* Delete */
 			var deleteResponse = await Client.DeleteAsync<NumberAttribute>(number.Code);
