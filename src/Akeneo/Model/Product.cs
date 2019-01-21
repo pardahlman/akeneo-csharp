@@ -66,6 +66,7 @@ namespace Akeneo.Model
 			Categories = new List<string>();
 			Associations = new Dictionary<string, ProductAssociation>();
 			Values = new Dictionary<string, List<ProductValue>>();
+            Metadata = new Dictionary<string, string>();
 		}
 	}
 }

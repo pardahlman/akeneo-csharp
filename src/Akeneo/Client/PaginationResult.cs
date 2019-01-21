@@ -50,7 +50,7 @@ namespace Akeneo.Client
 
 		public static string GetCursor(this IDictionary<string, PaginationLink> links)
 		{
-		    if (!links.TryGetValue(Next, out var link)) return null;
+		   if (!links.TryGetValue(Next, out var link)) return null;
 
 		    Uri myUri = new Uri(link.Href);
 		    string cursor = HttpUtility.ParseQueryString(myUri.Query).Get(SearchAfter);
