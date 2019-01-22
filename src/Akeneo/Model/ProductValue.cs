@@ -20,5 +20,11 @@ namespace Akeneo.Model
 		/// </summary>
 		[JsonConverter(typeof(ProductValueDataConverter))]
 		public object Data { get; set; }
-	}
+
+        /// <summary>
+        ///  URI to get the metadata of the media file 
+        /// </summary>
+	    [JsonProperty("_links", NullValueHandling = NullValueHandling.Ignore)]
+	    public Links Links { get; set; }
+    }
 }
