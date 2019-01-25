@@ -27,7 +27,5 @@ namespace Akeneo.Model
         ///  Several associations related to groups and/or other products, grouped by association types 
         /// </summary>
         public Dictionary<string, ProductAssociation> Associations { get; set; }
-
-        public Dictionary<string, string> Metadata { get; set; }
     }
 }
