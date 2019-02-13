@@ -62,7 +62,7 @@ namespace Akeneo.Serialization
 
 		private static bool IsMetricValue(JObject obj)
 		{
-			return obj.Property("unit") != null;
+			return obj.GetValue("unit").Type != JTokenType.Null;
 		}
 
 		public override bool CanConvert(Type objectType)
