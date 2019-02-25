@@ -26,7 +26,7 @@ namespace Akeneo
 		private readonly SearchQueryBuilder _searchBuilder;
 		private readonly ILog _logger = LogProvider.For<AkeneoClient>();
 
-		public AkeneoClient(AkeneoOptions options)
+        public AkeneoClient(AkeneoOptions options)
 			: this(options.ApiEndpoint, new AuthenticationClient(options.ApiEndpoint, options.ClientId, options.ClientSecret, options.UserName, options.Password)) { }
 
 		public AkeneoClient(Uri apiEndPoint, IAuthenticationClient authClient) : base(apiEndPoint, authClient)
@@ -46,7 +46,14 @@ namespace Akeneo
 				: default(TModel);
 		}
 
-		public async Task<TModel> GetAsync<TModel>(string parentCode, string code, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+	    public async Task<string> GetByUrl(string url, CancellationToken ct = default(CancellationToken))
+	    {
+	        _logger.Debug($"Getting resource from URL '{url}'.");
+	        HttpResponseMessage response = await GetAsync(url, ct);
+	        return await response.Content.ReadAsStringAsync();
+	    }
+
+        public async Task<TModel> GetAsync<TModel>(string parentCode, string code, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForResource<TModel>(parentCode, code);
 			_logger.Debug($"Getting resource '{typeof(TModel).Name}' from URL '{endpoint}'.");

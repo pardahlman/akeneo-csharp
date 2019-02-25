@@ -54,7 +54,8 @@ namespace Akeneo.Client
 
 		    Uri myUri = new Uri(link.Href);
 		    string cursor = HttpUtility.ParseQueryString(myUri.Query).Get(SearchAfter);
-		    return cursor;
+		    cursor = WebUtility.UrlEncode(cursor);
+            return cursor;
 		}
 	}
 
