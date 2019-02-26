@@ -12,8 +12,8 @@ namespace Akeneo.Search
 			return new Created
 			{
 				Operator = Operators.Equal,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static Created NotEquals(DateTime date)
@@ -21,16 +21,16 @@ namespace Akeneo.Search
 			return new Created
 			{
 				Operator = Operators.NotEqual,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static Created Greater(DateTime date)
 		{
-			return new Created
+            return new Created
 			{
 				Operator = Operators.Greater,
-				Value = date
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
 			};
 		}
 
@@ -39,8 +39,8 @@ namespace Akeneo.Search
 			return new Created
 			{
 				Operator = Operators.Lower,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static Created Between(DateTime start, DateTime stop)
