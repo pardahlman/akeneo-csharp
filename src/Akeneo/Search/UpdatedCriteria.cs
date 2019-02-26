@@ -12,8 +12,8 @@ namespace Akeneo.Search
 			return new UpdatedCriteria
 			{
 				Operator = Operators.Equal,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static UpdatedCriteria NotEquals(DateTime date)
@@ -21,8 +21,8 @@ namespace Akeneo.Search
 			return new UpdatedCriteria
 			{
 				Operator = Operators.NotEqual,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static UpdatedCriteria Greater(DateTime date)
@@ -30,8 +30,8 @@ namespace Akeneo.Search
 			return new UpdatedCriteria
 			{
 				Operator = Operators.Greater,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static UpdatedCriteria Lower(DateTime date)
@@ -39,8 +39,8 @@ namespace Akeneo.Search
 			return new UpdatedCriteria
 			{
 				Operator = Operators.Lower,
-				Value = date
-			};
+				Value = date.ToString("yyyy-MM-dd HH:mm:ss")
+            };
 		}
 
 		public static UpdatedCriteria Between(DateTime start, DateTime stop)

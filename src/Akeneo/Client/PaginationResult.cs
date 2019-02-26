@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace Akeneo.Client
@@ -39,10 +41,21 @@ namespace Akeneo.Client
 	public static class PaginationDictionaryExtensions
 	{
 		private static readonly string Next = "next";
+		private static readonly string SearchAfter = "search_after";
 
 		public static PaginationLink GetNext(this IDictionary<string, PaginationLink> links)
 		{
 			return links.ContainsKey(Next) ? links[Next] : null;
+		}
+
+		public static string GetCursor(this IDictionary<string, PaginationLink> links)
+		{
+		   if (!links.TryGetValue(Next, out var link)) return null;
+
+		    Uri myUri = new Uri(link.Href);
+		    string cursor = HttpUtility.ParseQueryString(myUri.Query).Get(SearchAfter);
+		    cursor = WebUtility.UrlEncode(cursor);
+            return cursor;
 		}
 	}
 

@@ -37,7 +37,10 @@ namespace Akeneo.Serialization
 				writer.WriteValue(productValue.Scope);
 			}
 
-			writer.WriteEndObject();
+		    writer.WritePropertyName("_links");
+		    serializer.Serialize(writer, productValue.Links);
+
+            writer.WriteEndObject();
 		}
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

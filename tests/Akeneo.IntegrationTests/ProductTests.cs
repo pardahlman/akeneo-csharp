@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,23 +28,23 @@ namespace Akeneo.IntegrationTests
 			var createResponse = await Client.CreateAsync(product);
 			var updateResponse = await Client.UpdateAsync(product);
 			var deleteResponse = await Client.DeleteAsync<Product>(product.Identifier);
-			Assert.Equal(createResponse.Code, HttpStatusCode.Created);
-			Assert.Equal(updateResponse.Code, HttpStatusCode.NoContent);
-			Assert.Equal(deleteResponse.Code, HttpStatusCode.NoContent);
+			Assert.Equal(HttpStatusCode.Created, createResponse.Code);
+			Assert.Equal(HttpStatusCode.NoContent, updateResponse.Code);
+			Assert.Equal(HttpStatusCode.NoContent, deleteResponse.Code);
 		}
 
 		[Fact]
 		public async Task Should_Be_Able_To_Search()
 		{
-			var result = await Client.SearchAsync<Product>(new List<Criteria>
-			{
-				ProductValue.Contains("sku", "tv"),
-				Category.In("Default_Base_Pack_Template"),
-				Family.In("Default_Base_Pack_Template"),
-				Completeness.Equal(100, AkeneoDefaults.Channel),
-				Status.Enabled()
-			});
-		}
+		    var result = await Client.SearchAsync<Product>(new List<Criteria>
+		    {
+		        ProductValue.Contains("sku", "tv"),
+		        Category.In("Default_Base_Pack_Template"),
+		        Family.In("Default_Base_Pack_Template"),
+		        Completeness.Equal(100, AkeneoDefaults.Channel),
+		        Status.Enabled()
+		    });
+        }
 
 		[Fact]
 		public async Task Should_Be_Able_To_Update_With_Dynamic_Object()

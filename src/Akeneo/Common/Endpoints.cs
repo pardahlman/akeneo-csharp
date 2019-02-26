@@ -9,5 +9,7 @@
 		public const string Families = "api/rest/v1/families";
 		public const string MediaFiles = "api/rest/v1/media-files";
 		public const string Locale = "api/rest/v1/locales";
+		public const string ProductModel = "api/rest/v1/product-models";
+		public const string FamilyVariant = "/api/rest/v1/families/{1}/variants";
 	}
 }
