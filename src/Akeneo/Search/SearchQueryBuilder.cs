@@ -10,6 +10,7 @@ namespace Akeneo.Search
 	public class SearchQueryBuilder
 	{
 		private const string SearchStart = "?search=";
+		private const string SearchParam = "&search=";
 		private const string SearchLocale = "&search_locale=";
 		private const string SearchScope = "&search_scope=";
 
@@ -21,6 +22,14 @@ namespace Akeneo.Search
 			return GetQueryString(searchDictionary, channel, locale);
 		}
 
+		public string GetQueryStringParam(IEnumerable<Criteria> criterias)
+		{
+			var searchDictionary = GetSearchDictionary(criterias);
+			var channel = GetChannels(criterias);
+			var locale = GetLocales(criterias);
+			return GetQueryStringParam(searchDictionary, channel, locale);
+		}
+
 		public string GetQueryString(Dictionary<string, List<Criteria>> criterias, string scope = null, string locale = null)
 		{
 			if (!criterias?.Keys.Any() ?? true)
@@ -29,6 +38,31 @@ namespace Akeneo.Search
 			}
 
 			var builder = new StringBuilder(SearchStart);
+			builder.Append(JsonConvert.SerializeObject(criterias, AkeneoSerializerSettings.Create));
+
+			if (!string.IsNullOrEmpty(scope))
+			{
+				builder.Append(SearchScope);
+				builder.Append(scope);
+			}
+
+			if (!string.IsNullOrEmpty(locale))
+			{
+				builder.Append(SearchLocale);
+				builder.Append(locale);
+			}
+
+			return builder.ToString();
+		}
+
+		public string GetQueryStringParam(Dictionary<string, List<Criteria>> criterias, string scope = null, string locale = null)
+		{
+			if (!criterias?.Keys.Any() ?? true)
+			{
+				throw new ArgumentException("Unable to build search query without any provided criteras.");
+			}
+
+			var builder = new StringBuilder(SearchParam);
 			builder.Append(JsonConvert.SerializeObject(criterias, AkeneoSerializerSettings.Create));
 
 			if (!string.IsNullOrEmpty(scope))

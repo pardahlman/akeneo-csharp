@@ -69,7 +69,13 @@ namespace Akeneo
 			return FilterAsync<TModel>(queryString, ct);
 		}
 
-		public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+	    public Task<List<TModel>> SearchAndGetAllAsync<TModel>(IEnumerable<Criteria> criterias, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+	    {
+	        var queryString = _searchBuilder.GetQueryStringParam(criterias);
+	        return FilterAndGetAllAsync<TModel>(queryString, null, ct);
+	    }
+
+        public async Task<PaginationResult<TModel>> FilterAsync<TModel>(string queryString, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			var endpoint = _endpointResolver.ForResourceType<TModel>();
 			_logger.Debug($"Filtering resource '{typeof(TModel).Name}' from URL '{endpoint}' with query '{queryString}'.");
@@ -78,8 +84,31 @@ namespace Akeneo
 			result.Code = response.StatusCode;
 			return result;
 		}
+	    public async Task<List<TModel>> FilterAndGetAllAsync<TModel>(string queryString, string cursor = null, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+	    {
+	        var endpoint = _endpointResolver.WithSearchAfter<TModel>(100, cursor);
+            _logger.Debug($"Filtering resource '{typeof(TModel).Name}' from URL '{endpoint}' with query '{queryString}'.");
+	        var response = await GetAsync($"{endpoint}{queryString}", ct);
 
-		public Task<PaginationResult<TModel>> GetManyAsync<TModel>(int page = 1, int limit = 10, bool withCount = false, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
+	        if (!response.IsSuccessStatusCode) throw new HttpRequestException($"Error while executing GET reques: {endpoint}{queryString}");
+
+	        PaginationResult<TModel> paginationResult = await response.Content.ReadAsJsonAsync<PaginationResult<TModel>>();
+	        paginationResult.Code = response.StatusCode;
+
+	        List<TModel> items = paginationResult.GetItems();
+
+	        var nextCursor = paginationResult.Links.GetCursor();
+
+	        if (nextCursor != null)
+	        {
+	            var nextItems = await FilterAndGetAllAsync<TModel>(queryString, nextCursor, ct);
+	            items.AddRange(nextItems);
+	        }
+
+	        return items;
+	    }
+
+        public Task<PaginationResult<TModel>> GetManyAsync<TModel>(int page = 1, int limit = 10, bool withCount = false, CancellationToken ct = default(CancellationToken)) where TModel : ModelBase
 		{
 			return GetManyAsync<TModel>(null, page, limit, withCount, ct);
 		}
